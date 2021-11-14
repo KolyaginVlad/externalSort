@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #e6e6fa;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.externalsort.externalsort.FirstController">
+   <children>
+      <Label layoutX="239.0" layoutY="29.0" text="Алгоритмы сортировки">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="83.0" text="Введите количество элементов">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="length" layoutX="313.0" layoutY="81.0" />
+      <Button fx:id="create" layoutX="529.0" layoutY="81.0" mnemonicParsing="false" text="Создать файл" textFill="#585883" />
+      <Button fx:id="showGraph" layoutX="445.0" layoutY="138.0" mnemonicParsing="false" text="Отобразить данные в графическом виде" textFill="#585883" />
+      <TableView fx:id="table" layoutX="15.0" layoutY="176.0" prefHeight="414.0" prefWidth="670.0">
+        <columns>
+          <TableColumn fx:id="size" prefWidth="99.0" text="Количество&#10; элементов" />
+          <TableColumn fx:id="simpleMerge" prefWidth="208.0" text="Сортировка простым слиянием" />
+            <TableColumn fx:id="naturalMerge" prefWidth="192.0" text="              Сортировка&#10;естественным слиянием" />
+            <TableColumn fx:id="absorptionMethod" prefWidth="170.0" text="       Сортировка&#10;методом поглощения" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
