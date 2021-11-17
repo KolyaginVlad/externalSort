@@ -19,7 +19,7 @@ import java.util.List;
 public class Main extends Application {
     private static Stage currentStage;
     //инициализируем список
-    private static List<Node> nodes = new ArrayList<>();;
+    private static List<Node> nodes = new ArrayList<>();
 
     public static List<Node> getNodes() {
         return nodes;
@@ -31,7 +31,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //Сохраняем ссылку на сцену
+        //Сохраняем ссылку на окно
         currentStage = stage;
         //Создаём загрузчик fxml файло, который преопразует fxml в графическое представление (Scene)
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("first_window.fxml"));
