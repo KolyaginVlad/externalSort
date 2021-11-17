@@ -1,10 +1,14 @@
 package ru.externalsort.externalsort;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Главный класс, в котором находится точка входа в программу.
  * Наследуется от Application и переопределяет его метод start
@@ -12,11 +16,25 @@ import java.io.IOException;
  * throws IOException- output\input exception - ошибка ввода\вывода - исключение, которое выбрасывается если при вызове fxmlLoader.load() не будет найден файл.
  * @Override - аннотация, помогающая программисту не ошибиться при переопределении метода. Если вы нарушите струтуру переопределяемого метода, то она начнёт ругаться
  **/
-public class Application extends javafx.application.Application {
+public class Main extends Application {
+    private static Stage currentStage;
+    //инициализируем список
+    private static List<Node> nodes = new ArrayList<>();;
+
+    public static List<Node> getNodes() {
+        return nodes;
+    }
+
+    public static Stage getCurrentStage() {
+        return currentStage;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
+        //Сохраняем ссылку на сцену
+        currentStage = stage;
         //Создаём загрузчик fxml файло, который преопразует fxml в графическое представление (Scene)
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("first_window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("first_window.fxml"));
         //Преобразуем, устанавливая размеры окна
         Scene scene = new Scene(fxmlLoader.load(), 700, 600);
         //Ставим заголовок
@@ -33,4 +51,5 @@ public class Application extends javafx.application.Application {
         //Запускаем процесс отображения окна
         launch();
     }
+
 }
