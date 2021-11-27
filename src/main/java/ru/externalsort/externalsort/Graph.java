@@ -12,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Graph {
     //В скобках указываются типы осей
@@ -32,12 +34,34 @@ public class Graph {
         XYChart.Series absorption = new XYChart.Series();
         absorption.setName("Метод поглощения");
         List<Node> nodes = Main.getNodes();
+        Map<Long, Double> mapSimple = new HashMap<>();
+        Map<Long, Double> mapNatural = new HashMap<>();
+        Map<Long, Double> mapAbsorption = new HashMap<>();
         //Заполняем
         for (int i = 0; i < nodes.size(); i++) {
-            long size = nodes.get(i).getSize();
-            simple.getData().add(new XYChart.Data(size, nodes.get(i).getSimpleMerge()));
-            natural.getData().add(new XYChart.Data(size, nodes.get(i).getNaturalMerge()));
-            absorption.getData().add(new XYChart.Data(size, nodes.get(i).getAbsorptionMethod()));
+            if (!mapSimple.containsKey(nodes.get(i).getSize())) {
+                int count = 0;
+                mapSimple.put(nodes.get(i).getSize(), 0D);
+                mapAbsorption.put(nodes.get(i).getSize(), 0D);
+                mapNatural.put(nodes.get(i).getSize(), 0D);
+                for (int j = 0; j < nodes.size(); j++) {
+                    if (nodes.get(i).getSize() == nodes.get(j).getSize()) {
+                        mapSimple.put(nodes.get(i).getSize(), mapSimple.get(nodes.get(i).getSize()) + nodes.get(j).getSimpleMerge());
+                        mapAbsorption.put(nodes.get(i).getSize(), mapAbsorption.get(nodes.get(i).getSize()) + nodes.get(j).getAbsorptionMethod());
+                        mapNatural.put(nodes.get(i).getSize(), mapNatural.get(nodes.get(i).getSize()) + nodes.get(j).getNaturalMerge());
+                        count++;
+                    }
+                }
+                mapSimple.put(nodes.get(i).getSize(), mapSimple.get(nodes.get(i).getSize())/count);
+                mapNatural.put(nodes.get(i).getSize(), mapNatural.get(nodes.get(i).getSize())/count);
+                mapAbsorption.put(nodes.get(i).getSize(), mapAbsorption.get(nodes.get(i).getSize())/count);
+            }
+        }
+        for (Long num: mapSimple.keySet()
+        ) {
+            simple.getData().add(new XYChart.Data(num, mapSimple.get(num)));
+            natural.getData().add(new XYChart.Data(num, mapNatural.get(num)));
+            absorption.getData().add(new XYChart.Data(num, mapAbsorption.get(num)));
         }
         //Отображем
         lineChart.getData().add(simple);
