@@ -8,10 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -27,6 +24,9 @@ import java.io.IOException;
 public class Grafica {
     @FXML
     private TextField length;
+
+    @FXML
+    private Label error;
 
     @FXML
     private Button create;
@@ -51,6 +51,7 @@ public class Grafica {
 
     @FXML
     void initialize() {
+        error.setVisible(false);
         //Создаю классы для соединения значений и столбцов
         size.setCellValueFactory(new PropertyValueFactory<>("size"));
         simpleMerge.setCellValueFactory(new PropertyValueFactory<>("simpleMerge"));
@@ -64,6 +65,11 @@ public class Grafica {
             @Override
             public void handle(Event event) {
                 //Берём текст с поля для ввода и приводим к числу
+                if(!isDigit(length.getText())){
+                    error.setVisible(true);
+                    return;
+                }
+                error.setVisible(false);
                 long size = Long.parseLong(length.getText());
                 //Создаём класс функций
                 Functions functions = new Functions();
@@ -97,5 +103,11 @@ public class Grafica {
             }
         });
 
+    }
+    private boolean isDigit(String str){
+        for (int i = 0; i < str.length(); i++) {
+            if(!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
     }
 }
