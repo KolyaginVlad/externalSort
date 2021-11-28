@@ -63,6 +63,9 @@ public class Graph {
             natural.getData().add(new XYChart.Data(num, mapNatural.get(num)));
             absorption.getData().add(new XYChart.Data(num, mapAbsorption.get(num)));
         }
+        simple.getData().add(new XYChart.Data(0, 0));
+        natural.getData().add(new XYChart.Data(0, 0));
+        absorption.getData().add(new XYChart.Data(0, 0));
         //Отображем
         lineChart.getData().add(simple);
         lineChart.getData().add(natural);
